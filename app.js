@@ -20,12 +20,20 @@ async function loadModels() {
 
     //Create Grass Block
     let groundMaterialArray = [];
+    let groundMudMaterialArray = [];
+    let treeTrumpMaterialArray = [];
+
+    // Ground Textures
     let groundTexture_ft = new THREE.TextureLoader().load('/ModelResources/Ground/MudWithGrass.jpg');
     let groundTexture_bk = new THREE.TextureLoader().load('/ModelResources/Ground/MudWithGrass.jpg');
     let groundTexture_up = new THREE.TextureLoader().load('/ModelResources/Ground/GrassOverMud.jpg');
     let groundTexture_dn = new THREE.TextureLoader().load('/ModelResources/Ground/mud.jpg');
     let groundTexture_rt = new THREE.TextureLoader().load('/ModelResources/Ground/MudWithGrass.jpg');
     let groundTexture_lf = new THREE.TextureLoader().load('/ModelResources/Ground/MudWithGrass.jpg');
+
+    // Tree Texture
+    let groundTexture_lf = new THREE.TextureLoader().load('/ModelResources/Ground/Tree.jpg');
+
 
     groundMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_ft }));
     groundMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_bk }));
@@ -34,6 +42,20 @@ async function loadModels() {
     groundMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_rt }));
     groundMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_lf }));
 
+    groundMudMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
+    groundMudMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
+    groundMudMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
+    groundMudMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
+    groundMudMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
+    groundMudMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
+
+    treeTrumpMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
+    treeTrumpMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
+    treeTrumpMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
+    treeTrumpMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
+    treeTrumpMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
+    treeTrumpMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
+
 
     //   let ambientlight = new THREE.AmbientLight(0xFFFFFF, 0.3);
     //   scene.add(ambientlight);
@@ -41,9 +63,14 @@ async function loadModels() {
     console.log(groundMaterialArray);
     for (let i = 0; i < 6; i++)
         groundMaterialArray[i].side = THREE.FrontSide;
+    groundMudMaterialArray[i].side = THREE.FrontSide;
+    treeTrumpMaterialArray[i].side = THREE.FrontSide;
+
 
 
     let groundBoxGeo = new THREE.BoxGeometry(100, 100, 100);
+    let groundMudBoxGeo = new THREE.BoxGeometry(100, 100, 100);
+    let treeTrumpBoxGeo = new THREE.BoxGeometry(100, 100, 100);
 
 
     let posxaxis = 0;
@@ -52,6 +79,8 @@ async function loadModels() {
     let negzaxis = 0;
     for (let i = 0; i < 400; i++) {
         if (i > 0 && i < 100) {
+
+            // Grass
             let groundBox = new THREE.Mesh(groundBoxGeo, groundMaterialArray);
             groundBox.position.y = 50;
             groundBox.position.x = posxaxis;
@@ -77,6 +106,43 @@ async function loadModels() {
             groundBox.position.y = 50;
             groundBox.position.z = negzaxis;
             scene.add(groundBox);
+            negzaxis -= 100;
+        }
+    }
+
+    posxaxis = 0;
+    negxaxis = 0;
+    poszaxis = 0;
+    negzaxis = 0;
+
+    for (let i = 0; i < 400; i++) {
+        if (i > 0 && i < 100) {
+            // Mud
+            let groundMudBox = new THREE.Mesh(groundMudBoxGeo, groundMudMaterialArray);
+            groundMudBox.position.y = -50;
+            groundMudBox.position.x = posxaxis;
+            scene.add(groundMudBox);
+            posxaxis += 100;
+        }
+        else if (i > 100 && i < 200) {
+            let groundMudBox = new THREE.Mesh(groundMudBoxGeo, groundMudMaterialArray);
+            groundMudBox.position.y = -50;
+            groundMudBox.position.x = negxaxis;
+            scene.add(groundMudBox);
+            negxaxis -= 100;
+        }
+        else if (i > 200 && i < 300) {
+            let groundMudBox = new THREE.Mesh(groundMudBoxGeo, groundMudMaterialArray);
+            groundMudBox.position.y = -50;
+            groundMudBox.position.z = poszaxis;
+            scene.add(groundMudBox);
+            poszaxis += 100;
+        }
+        else if (i > 300 && i < 400) {
+            let groundMudBox = new THREE.Mesh(groundMudBoxGeo, groundMudMaterialArray);
+            groundMudBox.position.y = -50;
+            groundMudBox.position.z = negzaxis;
+            scene.add(groundMudBox);
             negzaxis -= 100;
         }
     }
