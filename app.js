@@ -21,7 +21,7 @@ async function loadModels() {
     //Create Grass Block
     let groundMaterialArray = [];
     let groundMudMaterialArray = [];
-    let treeTrumpMaterialArray = [];
+    let treeTrunkMaterialArray = [];
 
     // Ground Textures
     let groundTexture_ft = new THREE.TextureLoader().load('/ModelResources/Ground/MudWithGrass.jpg');
@@ -32,7 +32,7 @@ async function loadModels() {
     let groundTexture_lf = new THREE.TextureLoader().load('/ModelResources/Ground/MudWithGrass.jpg');
 
     // Tree Texture
-    let groundTexture_lf = new THREE.TextureLoader().load('/ModelResources/Ground/Tree.jpg');
+    let treeTextureAllFaces = new THREE.TextureLoader().load('/ModelResources/Ground/Tree.png');
 
 
     groundMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_ft }));
@@ -49,35 +49,44 @@ async function loadModels() {
     groundMudMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
     groundMudMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
 
-    treeTrumpMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
-    treeTrumpMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
-    treeTrumpMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
-    treeTrumpMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
-    treeTrumpMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
-    treeTrumpMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
+    treeTrunkMaterialArray.push(new THREE.MeshBasicMaterial({ map: treeTextureAllFaces }));
+    treeTrunkMaterialArray.push(new THREE.MeshBasicMaterial({ map: treeTextureAllFaces }));
+    treeTrunkMaterialArray.push(new THREE.MeshBasicMaterial({ map: treeTextureAllFaces }));
+    treeTrunkMaterialArray.push(new THREE.MeshBasicMaterial({ map: treeTextureAllFaces }));
+    treeTrunkMaterialArray.push(new THREE.MeshBasicMaterial({ map: treeTextureAllFaces }));
+    treeTrunkMaterialArray.push(new THREE.MeshBasicMaterial({ map: treeTextureAllFaces }));
 
 
     //   let ambientlight = new THREE.AmbientLight(0xFFFFFF, 0.3);
     //   scene.add(ambientlight);
 
     console.log(groundMaterialArray);
-    for (let i = 0; i < 6; i++)
+    for (let i = 0; i < 6; i++) {
         groundMaterialArray[i].side = THREE.FrontSide;
-    groundMudMaterialArray[i].side = THREE.FrontSide;
-    treeTrumpMaterialArray[i].side = THREE.FrontSide;
+        groundMudMaterialArray[i].side = THREE.FrontSide;
+        treeTrunkMaterialArray[i].side = THREE.FrontSide;
+    }
 
 
 
     let groundBoxGeo = new THREE.BoxGeometry(100, 100, 100);
     let groundMudBoxGeo = new THREE.BoxGeometry(100, 100, 100);
-    let treeTrumpBoxGeo = new THREE.BoxGeometry(100, 100, 100);
+    let treeTrunkBoxGeo = new THREE.BoxGeometry(100, 100, 100);
 
 
     let posxaxis = 0;
     let negxaxis = 0;
     let poszaxis = 0;
     let negzaxis = 0;
+    let posyaxis = 150;
     for (let i = 0; i < 400; i++) {
+        if(i>0 && i<6){
+           // Grass
+           let treeTrunkBox = new THREE.Mesh(treeTrunkBoxGeo, treeTrunkMaterialArray);
+           treeTrunkBox.position.y = posyaxis;
+           scene.add(treeTrunkBox);
+           posyaxis += 100; 
+        }
         if (i > 0 && i < 100) {
 
             // Grass
