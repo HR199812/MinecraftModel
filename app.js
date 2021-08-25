@@ -9,7 +9,7 @@ const clock = new THREE.Clock();
 let camera, scene, renderer, skeleton, orbitControls, cameraTRBL = 100, cameraMapSize = 2048, cameraNear = 0.5,
     character, characterRotation, rotationCheck, actions = [], mixer, prevAction, hemiLight, dirlight, ambientLight;
 
-
+const resourcePath = './ModelResources/';
 initScene();
 initRenderer();
 await loadModels();
@@ -17,50 +17,57 @@ animate();
 
 // Function to load character and it's related animations
 async function loadModels() {
-    character = new FBXLoader();
 
-    character.setPath(resourcePath);
-    character.load('ybot.fbx', (fbx) => {
+    //Create Grass Block
+    let groundMaterialArray = [];
+    let groundTexture_ft = new THREE.TextureLoader().load('/ModelResources/Ground/MudWithGrass.jpg');
+    let groundTexture_bk = new THREE.TextureLoader().load('/ModelResources/Ground/MudWithGrass.jpg');
+    let groundTexture_up = new THREE.TextureLoader().load('/ModelResources/Ground/GrassOverMud.jpg');
+    let groundTexture_dn = new THREE.TextureLoader().load('/ModelResources/Ground/mud.jpg');
+    let groundTexture_rt = new THREE.TextureLoader().load('/ModelResources/Ground/MudWithGrass.jpg');
+    let groundTexture_lf = new THREE.TextureLoader().load('/ModelResources/Ground/MudWithGrass.jpg');
 
-        characterRotation = fbx;
-
-        mixer = new THREE.AnimationMixer(fbx);
-
-        fbx.traverse(c => {
-            c.castShadow = true;
-            c.receiveShadow = false;
-        });
-
-
-        skeleton = new THREE.SkeletonHelper(fbx);
-        skeleton.visible = true;
-        scene.add(skeleton);
+    groundMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_ft }));
+    groundMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_bk }));
+    groundMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_up }));
+    groundMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
+    groundMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_rt }));
+    groundMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_lf }));
 
 
-        character.load('Idle.fbx', function (anim) {
+    //   let ambientlight = new THREE.AmbientLight(0xFFFFFF, 0.3);
+    //   scene.add(ambientlight);
 
-            mixer.clipAction(anim.animations[0]).play();
-            prevAction = mixer.clipAction(anim.animations[0]);
-
-            actions.push({ anim, mixer });
-
-
-            anim.traverse(function (child) {
-
-                if (child.isMesh) {
-                    child.castShadow = true;
-                    child.receiveShadow = false;
-                }
-            });
-        });
+    console.log(groundMaterialArray);
+    for (let i = 0; i < 6; i++)
+        groundMaterialArray[i].side = THREE.FrontSide;
 
 
-        loadNextAnimation();
+    let groundBoxGeo = new THREE.BoxGeometry(100, 100, 100);
+    let groundBox = new THREE.Mesh(groundBoxGeo, groundMaterialArray);
+    groundBox.position.y = 50;
+    scene.add(groundBox);
+    // character = new THREE.ObjectLoader();
 
+    // character.setPath(resourcePath);
+    // character.load('minecraft-steve.json', (fbx) => {
 
-        scene.add(fbx);
+    //     characterRotation = fbx;
 
-    });
+    //     // mixer = new THREE.AnimationMixer(fbx);
+
+    //     fbx.traverse(c => {
+    //         c.castShadow = true;
+    //         c.receiveShadow = false;
+    //     });
+
+    //     skeleton = new THREE.SkeletonHelper(fbx);
+    //     skeleton.visible = true;
+    //     scene.add(skeleton);
+
+    //     scene.add(fbx);
+
+    // });
 }
 
 // Function to render the 3d World
@@ -82,8 +89,8 @@ function initRenderer() {
     orbitControls.screenSpacePanning = false;
     orbitControls.minDistance = 0;
     orbitControls.maxDistance = 45000;
-    orbitControls.minPolarAngle = -Math.PI / 1.5;
-    orbitControls.maxPolarAngle = Math.PI / 2.5;
+    // orbitControls.minPolarAngle = -Math.PI / 1.5;
+    // orbitControls.maxPolarAngle = Math.PI / 2.5;
     orbitControls.update();
 }
 
