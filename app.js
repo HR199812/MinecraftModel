@@ -44,9 +44,43 @@ async function loadModels() {
 
 
     let groundBoxGeo = new THREE.BoxGeometry(100, 100, 100);
-    let groundBox = new THREE.Mesh(groundBoxGeo, groundMaterialArray);
-    groundBox.position.y = 50;
-    scene.add(groundBox);
+
+
+    let posxaxis = 0;
+    let negxaxis = 0;
+    let poszaxis = 0;
+    let negzaxis = 0;
+    for (let i = 0; i < 400; i++) {
+        if (i > 0 && i < 100) {
+            let groundBox = new THREE.Mesh(groundBoxGeo, groundMaterialArray);
+            groundBox.position.y = 50;
+            groundBox.position.x = posxaxis;
+            scene.add(groundBox);
+            posxaxis += 100;
+        }
+        else if (i > 100 && i < 200) {
+            let groundBox = new THREE.Mesh(groundBoxGeo, groundMaterialArray);
+            groundBox.position.y = 50;
+            groundBox.position.x = negxaxis;
+            scene.add(groundBox);
+            negxaxis -= 100;
+        }
+        else if (i > 200 && i < 300) {
+            let groundBox = new THREE.Mesh(groundBoxGeo, groundMaterialArray);
+            groundBox.position.y = 50;
+            groundBox.position.z = poszaxis;
+            scene.add(groundBox);
+            poszaxis += 100;
+        }
+        else if (i > 300 && i < 400) {
+            let groundBox = new THREE.Mesh(groundBoxGeo, groundMaterialArray);
+            groundBox.position.y = 50;
+            groundBox.position.z = negzaxis;
+            scene.add(groundBox);
+            negzaxis -= 100;
+        }
+    }
+
     // character = new THREE.ObjectLoader();
 
     // character.setPath(resourcePath);
@@ -99,7 +133,7 @@ function initScene() {
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xbfd1e5);
-    scene.fog = new THREE.FogExp2(0xbfd1e5, 0.0015);
+    // scene.fog = new THREE.FogExp2(0xbfd1e5, 0.0015);
 
     camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.set(-180, 250, -150);
