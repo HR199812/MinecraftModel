@@ -22,6 +22,7 @@ async function loadModels() {
     let groundMaterialArray = [];
     let groundMudMaterialArray = [];
     let treeTrunkMaterialArray = [];
+    let treeLeavesMaterialArray = [];
 
     // Ground Textures
     let groundTexture_ft = new THREE.TextureLoader().load('/ModelResources/Ground/MudWithGrass.jpg');
@@ -33,15 +34,17 @@ async function loadModels() {
 
     // Tree Texture
     let treeTextureAllFaces = new THREE.TextureLoader().load('/ModelResources/Ground/Tree.png');
+    let treeLeavesTextureAllFaces = new THREE.TextureLoader().load('/ModelResources/Ground/treeleaves.png');
 
-
+    // Ground With Grass
     groundMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_ft }));
     groundMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_bk }));
     groundMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_up }));
     groundMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
     groundMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_rt }));
     groundMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_lf }));
-
+    
+    // Ground only with dirt
     groundMudMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
     groundMudMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
     groundMudMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
@@ -49,12 +52,21 @@ async function loadModels() {
     groundMudMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
     groundMudMaterialArray.push(new THREE.MeshBasicMaterial({ map: groundTexture_dn }));
 
+    // Oak Tree Trunk
     treeTrunkMaterialArray.push(new THREE.MeshBasicMaterial({ map: treeTextureAllFaces }));
     treeTrunkMaterialArray.push(new THREE.MeshBasicMaterial({ map: treeTextureAllFaces }));
     treeTrunkMaterialArray.push(new THREE.MeshBasicMaterial({ map: treeTextureAllFaces }));
     treeTrunkMaterialArray.push(new THREE.MeshBasicMaterial({ map: treeTextureAllFaces }));
     treeTrunkMaterialArray.push(new THREE.MeshBasicMaterial({ map: treeTextureAllFaces }));
     treeTrunkMaterialArray.push(new THREE.MeshBasicMaterial({ map: treeTextureAllFaces }));
+    
+    // Oak Tree Leaves
+    treeLeavesMaterialArray.push(new THREE.MeshBasicMaterial({ map: treeLeavesTextureAllFaces }));
+    treeLeavesMaterialArray.push(new THREE.MeshBasicMaterial({ map: treeLeavesTextureAllFaces }));
+    treeLeavesMaterialArray.push(new THREE.MeshBasicMaterial({ map: treeLeavesTextureAllFaces }));
+    treeLeavesMaterialArray.push(new THREE.MeshBasicMaterial({ map: treeLeavesTextureAllFaces }));
+    treeLeavesMaterialArray.push(new THREE.MeshBasicMaterial({ map: treeLeavesTextureAllFaces }));
+    treeLeavesMaterialArray.push(new THREE.MeshBasicMaterial({ map: treeLeavesTextureAllFaces }));
 
 
     //   let ambientlight = new THREE.AmbientLight(0xFFFFFF, 0.3);
@@ -65,6 +77,7 @@ async function loadModels() {
         groundMaterialArray[i].side = THREE.FrontSide;
         groundMudMaterialArray[i].side = THREE.FrontSide;
         treeTrunkMaterialArray[i].side = THREE.FrontSide;
+        treeLeavesMaterialArray[i].side = THREE.FrontSide;
     }
 
 
@@ -72,6 +85,7 @@ async function loadModels() {
     let groundBoxGeo = new THREE.BoxGeometry(100, 100, 100);
     let groundMudBoxGeo = new THREE.BoxGeometry(100, 100, 100);
     let treeTrunkBoxGeo = new THREE.BoxGeometry(100, 100, 100);
+    let treeLeavesBoxGeo = new THREE.BoxGeometry(100, 100, 100);
 
 
     let posxaxis = 0;
@@ -80,12 +94,12 @@ async function loadModels() {
     let negzaxis = 0;
     let posyaxis = 150;
     for (let i = 0; i < 400; i++) {
-        if(i>0 && i<6){
-           // Grass
-           let treeTrunkBox = new THREE.Mesh(treeTrunkBoxGeo, treeTrunkMaterialArray);
-           treeTrunkBox.position.y = posyaxis;
-           scene.add(treeTrunkBox);
-           posyaxis += 100; 
+        if (i > 0 && i < 6) {
+            // Grass
+            let treeTrunkBox = new THREE.Mesh(treeTrunkBoxGeo, treeTrunkMaterialArray);
+            treeTrunkBox.position.y = posyaxis;
+            scene.add(treeTrunkBox);
+            posyaxis += 100;
         }
         if (i > 0 && i < 100) {
 
