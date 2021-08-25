@@ -72,14 +72,6 @@ async function loadModels() {
     //   let ambientlight = new THREE.AmbientLight(0xFFFFFF, 0.3);
     //   scene.add(ambientlight);
 
-    console.log(groundMaterialArray);
-    for (let i = 0; i < 6; i++) {
-        groundMaterialArray[i].side = THREE.FrontSide;
-        groundMudMaterialArray[i].side = THREE.FrontSide;
-        treeTrunkMaterialArray[i].side = THREE.FrontSide;
-        treeLeavesMaterialArray[i].side = THREE.FrontSide;
-    }
-
 
 
     let groundBoxGeo = new THREE.BoxGeometry(100, 100, 100);
